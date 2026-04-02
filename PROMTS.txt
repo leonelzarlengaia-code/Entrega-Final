@@ -1,0 +1,47 @@
+PRIMER PROMT UTILIZADO PARA SEPARAR POSITIVO/NEGATIVO: 
+
+Clasifica el siguiente género de videojuego: 
+{{ $json.Genero }}
+REGLAS:
+- Si el género es Shooter, RPG, Mundo abierto, Estrategia o Battle Royale -> Responde: {"resultado": "POSITIVO"}
+- Si es cualquier otro  {"resultado": "NEGATIVO"}
+Solo devuelve el POSITIVO O NEGATIVO, sin texto adicional.
+-------------------------------------------------------------------------------------------------------------------
+PROMT UTILIZADO EN EL NODO JUEGOS_POSITIVO:
+
+Actúa como un vendedor experto en videojuegos. 
+Redacta un correo electrónico de 3 oraciones,con estos datos. 
+
+DATOS DEL JUEGO
+Título {{ $json.Titulo }}
+Plataforma Windows
+Fecha de Lanzamiento {{ $json.Fecha_Lanzamiento }}
+Resumen {{ $json.Descripcion_breve }}
+
+REGLAS DE REDACCIÓN
+Aclaras la fecha de lanzamiento ,titulo y genero. Y una breve descripcion mas llamativa. 
+FORMATO DE SALIDA (JSON) SEPARADOS:
+Asunto: [Texto]\nCuerpo: [Texto]
+}
+-------------------------------------------------------------------------------------------------------------------------
+PROMT (este promt esta en JavaScript, fue una prueba para ver si consumia menos tokens, y es un resultado similar) UTILIZADO EN EL NODO JUEGOS_NEGATIVOS:
+
+const prompt = `
+Devuelve SOLO un JSON válido sin texto extra ni backticks.
+
+FORMATO DE SALIDA (JSON) SEPARADOS:
+Asunto: [Texto]\nCuerpo: [Texto]
+}
+
+Escribe un email corto para alguien sin interés en videojuegos.
+
+Reglas:
+- Máximo 3 oraciones en "cuerpo"
+- Tono curioso y persuasivo
+- Usa estos datos de forma natural:
+
+Titulo: {{ $('Seleccionador 1').item.json.Titulo }}
+Descripcion: {{ $('Seleccionador 1').item.json.Descripcion_breve }}
+Genero: {{ $('Seleccionador 1').item.json.Genero }}
+Fecha: {{ $('Seleccionador 1').item.json.Fecha_Lanzamiento }}
+`;

@@ -1,0 +1,1306 @@
+{
+  "name": "FINAL Leonel Zarlenga",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1sMOo4frEoWR8xsN5a7bdSgMKgNAcfMl3_MLHYp3OMgc",
+          "mode": "list",
+          "cachedResultName": "Preyecto_Final",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sMOo4frEoWR8xsN5a7bdSgMKgNAcfMl3_MLHYp3OMgc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 252562133,
+          "mode": "list",
+          "cachedResultName": "Juegos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sMOo4frEoWR8xsN5a7bdSgMKgNAcfMl3_MLHYp3OMgc/edit#gid=252562133"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Titulo",
+              "displayName": "Titulo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Descripcion_breve",
+              "displayName": "Descripcion_breve",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Genero",
+              "displayName": "Genero",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Fecha_Lanzamiento",
+              "displayName": "Fecha_Lanzamiento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Plataforma",
+              "displayName": "Plataforma",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1120,
+        -304
+      ],
+      "id": "73348de8-600c-408b-bc59-020779d842ef",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Y8YPrbr81u7W773g",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://www.freetogame.com/api/games",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        224,
+        -144
+      ],
+      "id": "9be45347-8497-4004-b2f2-adc8aa83c186",
+      "name": "GET_API_JUEGOS",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2b68347d-a526-40b8-8d8e-60bb9ad56df0",
+              "name": "Titulo",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "a522d815-ba6b-4c97-96d0-b5afcdcddd6c",
+              "name": "Descripcion_breve",
+              "value": "={{ $json.short_description }}",
+              "type": "string"
+            },
+            {
+              "id": "7280f41b-bca8-4209-9404-e94b2802568f",
+              "name": "Genero",
+              "value": "={{ $json.genre }}",
+              "type": "string"
+            },
+            {
+              "id": "b1ac86e5-8cb8-4fce-aac0-f55ff5d19fd2",
+              "name": "Fecha_Lanzamiento",
+              "value": "={{ $json.release_date }}",
+              "type": "string"
+            },
+            {
+              "id": "9e4090e2-c649-4304-9cd7-799e52561e16",
+              "name": "Plataforma",
+              "value": "={{ $json.platform }}",
+              "type": "string"
+            },
+            {
+              "id": "a79c7240-6143-42a8-afb2-c63e0a4c78da",
+              "name": "intentos",
+              "value": "={{ $json.intentos }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        -208
+      ],
+      "id": "a0b99e7a-ab23-4d76-9289-3a0d1aff4cd3",
+      "name": "DATOS"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        -144
+      ],
+      "id": "2348b170-e758-4ab9-801c-9df397b59875",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1sMOo4frEoWR8xsN5a7bdSgMKgNAcfMl3_MLHYp3OMgc",
+          "mode": "list",
+          "cachedResultName": "Preyecto_Final",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sMOo4frEoWR8xsN5a7bdSgMKgNAcfMl3_MLHYp3OMgc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 252562133,
+          "mode": "list",
+          "cachedResultName": "Juegos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sMOo4frEoWR8xsN5a7bdSgMKgNAcfMl3_MLHYp3OMgc/edit#gid=252562133"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2256,
+        -304
+      ],
+      "id": "bc5ba0c5-70c4-4f1b-b334-5e9def8eaeca",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Y8YPrbr81u7W773g",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sort",
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "row_number",
+              "order": "descending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4fe292cf-1dad-4ed5-adcd-9711eee8afd4",
+      "name": "Ordenar por fecha DESC",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 2,
+      "position": [
+        2480,
+        -304
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "limit"
+      },
+      "id": "16768745-3378-4f5f-9176-f02bafd1d2d1",
+      "name": "Seleccionador 1",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 2,
+      "position": [
+        2704,
+        -304
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.content.parts[0].text }}",
+                    "rightValue": "{\"resultado\": \"POSITIVO\"}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "e69d7f3d-4aa6-40b1-bcb7-d97cea65cc58"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Salida positiva, juegos interes"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "86c97c2c-d3b9-449c-83ec-74b1aa8c1332",
+                    "leftValue": "={{ $json.content.parts[0].text }}",
+                    "rightValue": "{\"resultado\": \"NEGATIVO\"}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Salida negativa, juegos poco interes"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        3280,
+        -304
+      ],
+      "id": "2f59d7ca-daf6-4e0d-bb2b-1ad9217bdc6a",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash-lite",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash-lite"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Clasifica el siguiente género de videojuego: \n{{ $json.Genero }}\nREGLAS:\n- Si el género es Shooter, RPG, Mundo abierto, Estrategia o Battle Royale -> Responde: {\"resultado\": \"POSITIVO\"}\n- Si es cualquier otro  {\"resultado\": \"NEGATIVO\"}\nSolo devuelve el POSITIVO O NEGATIVO, sin texto adicional."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        2928,
+        -304
+      ],
+      "id": "6af3494f-88db-438f-903c-eb580a31e990",
+      "name": "Separador de GENEROS",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "d8i4VSLTVlbai38I",
+          "name": "hoy 26/2/26"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "e4545830-5b6d-4e35-af80-b1e0da546ee5",
+              "leftValue": "={{ $json.intentos }}",
+              "rightValue": 10,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "85c0c484-3e1e-49c7-b9ff-bda9bad76e9b",
+      "name": "Verificar Límite 10",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        160
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "31455aae-a62b-483f-a357-35a8c8b4e132",
+      "name": "Wait para no saturar n8n",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        -112
+      ],
+      "webhookId": "ab140e0d-0ab8-434a-ab7f-64cf9be2bae6"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash-lite",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash-lite"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Actúa como un vendedor experto en videojuegos. \nRedacta un correo electrónico de 3 oraciones,con estos datos. \n\nDATOS DEL JUEGO\nTítulo {{ $json.Titulo }}\nPlataforma Windows\nFecha de Lanzamiento {{ $json.Fecha_Lanzamiento }}\nResumen {{ $json.Descripcion_breve }}\n\nREGLAS DE REDACCIÓN\nAclaras la fecha de lanzamiento ,titulo y genero. Y una breve descripcion mas llamativa. \nFORMATO DE SALIDA (JSON) SEPARADOS:\nAsunto: [Texto]\\nCuerpo: [Texto]\n}"
+            }
+          ]
+        },
+        "simplify": false,
+        "jsonOutput": true,
+        "builtInTools": {},
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        3728,
+        -432
+      ],
+      "id": "aa096b22-3872-4952-b50e-efe2aa9ae517",
+      "name": "JUEGOS_POSITIVO",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "d8i4VSLTVlbai38I",
+          "name": "hoy 26/2/26"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "04d5535b-78f3-44ba-b492-216a269217a9",
+              "leftValue": "={{ $json.Plataforma }}",
+              "rightValue": "PC (Windows)",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        896,
+        -208
+      ],
+      "id": "d04a44db-890b-4f11-bcfb-db51873c7656",
+      "name": "SOLO_WINDOWS_PLATAFORMA1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Accedemos a los datos del nodo de la API\nconst apiData = $(\"GET_API_JUEGOS\").all(); \n\n// 2. Recuperamos el contador de manera segura para \"Run Once for All Items\"\nconst intentosActuales = $input.all()[0].json.intentos || 0;\n\nif (apiData.length === 0) {\n    throw new Error(\"No se encontraron ítems en el nodo de la API.\");\n}\n\n// 3. Selección aleatoria\nconst randomIndex = Math.floor(Math.random() * apiData.length);\nconst selectedGame = apiData[randomIndex].json;\n\n// 4. Retornamos el juego seleccionado + persistimos el contador\nreturn [{\n    json: {\n        ...selectedGame,\n        intentos: intentosActuales\n    }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        -144
+      ],
+      "id": "4e76ecd0-0456-4cf4-a559-95271d6b54d9",
+      "name": "Codigo que selecciona 1 al azar v3"
+    },
+    {
+      "parameters": {
+        "jsCode": "for (const item of $input.all()) {\n  // El operador Number() es más estricto y seguro para sumas\n  const actual = Number(item.json.intentos) || 0;\n  item.json.intentos = actual + 1;\n}\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        -112
+      ],
+      "id": "db9d58f9-42a5-4832-84a3-b7e4838a32d5",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a54a4da8-edf3-4b6f-b29f-9b14e46afbc4",
+              "name": "Titulo",
+              "value": "={{ $('Seleccionador 1').item.json.Titulo }}",
+              "type": "string"
+            },
+            {
+              "id": "375a1d74-91a7-4b2d-8a7a-436a7a0bda82",
+              "name": "Descripcion_breve",
+              "value": "={{ $('Seleccionador 1').item.json.Descripcion_breve }}",
+              "type": "string"
+            },
+            {
+              "id": "e36a5698-ec37-4272-b8d9-441930b347f2",
+              "name": "Genero",
+              "value": "={{ $('Seleccionador 1').item.json.Genero }}",
+              "type": "string"
+            },
+            {
+              "id": "2e068a87-5d26-4037-84e4-937717ae1e60",
+              "name": "Fecha_Lanzamiento",
+              "value": "={{ $('Seleccionador 1').item.json.Fecha_Lanzamiento }}",
+              "type": "string"
+            },
+            {
+              "id": "b100a4a5-1664-4097-ad8a-ed9130ffefd7",
+              "name": "Plataforma",
+              "value": "={{ $('Seleccionador 1').item.json.Plataforma }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3504,
+        -208
+      ],
+      "id": "f745b8af-8d8e-4d16-89cd-2318481e655b",
+      "name": "DATOS_MAIL-"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2b447df9-e286-4e1c-bc9a-0f6e5063efc3",
+              "name": "Titulo",
+              "value": "={{ $('Seleccionador 1').item.json.Titulo }}",
+              "type": "string"
+            },
+            {
+              "id": "da74fe15-d082-47b6-9657-ac19195f7b76",
+              "name": "Genero",
+              "value": "={{ $('Seleccionador 1').item.json.Genero }}",
+              "type": "string"
+            },
+            {
+              "id": "58a3187a-5ee9-48b7-b660-13b1e613fcb6",
+              "name": "Fecha_Lanzamiento",
+              "value": "={{ $('Seleccionador 1').item.json.Fecha_Lanzamiento }}",
+              "type": "string"
+            },
+            {
+              "id": "483e25c7-8bf7-4cac-bdaa-1ee865245b02",
+              "name": "Descripcion_breve",
+              "value": "={{ $('Seleccionador 1').item.json.Descripcion_breve }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3504,
+        -400
+      ],
+      "id": "94eb4afe-5112-4caa-9e97-b4099303b9c3",
+      "name": "DATOS_MAIL+"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e0e3776b-3a21-4d1a-9f5a-c941dfb7a421",
+              "name": "emailSubject",
+              "value": "={{ JSON.parse( ( $json.candidates[0].content.parts[0].text || $json.candidates[0].content.parts[0] ).replace(/```json|```/gi, '') ).Asunto }}",
+              "type": "string"
+            },
+            {
+              "id": "f1f4887c-4b32-5e2b-0g6b-d052egc8b532",
+              "name": "emailBody",
+              "value": "={{ JSON.parse( ( $json.candidates[0].content.parts[0].text || $json.candidates[0].content.parts[0] ).replace(/```json|```/gi, '') ).Cuerpo }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2c6167ad-aa55-4565-a212-56b14ba35e38",
+      "name": "Extraer Asunto y Cuerpo (JSON)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        4064,
+        -432
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e0e3776b-3a21-4d1a-9f5a-c941dfb7a421",
+              "name": "emailSubject",
+              "value": "={{ JSON.parse( ( $json.candidates[0].content.parts[0].text || $json.candidates[0].content.parts[0] ).replace(/```json|```/gi, '') ).Asunto }}",
+              "type": "string"
+            },
+            {
+              "id": "f1f4887c-4b32-5e2b-0g6b-d052egc8b532",
+              "name": "emailBody",
+              "value": "={{ JSON.parse( ( $json.candidates[0].content.parts[0].text || $json.candidates[0].content.parts[0] ).replace(/```json|```/gi, '') ).Cuerpo }}",
+              "type": "string"
+            },
+            {
+              "id": "daca065f-6a24-4a39-a255-ae9479deaf8c",
+              "name": "candidates[0].content.parts[0].text",
+              "value": "={{ $json.candidates[0].content.parts[0].text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1ef88985-aee7-4742-a492-9fd962ba1c83",
+      "name": "Extraer Asunto y Cuerpo (JSON)1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        4080,
+        -208
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "PONER_MAIL_PRUEBAS",
+        "subject": "={{ $json.emailSubject }}",
+        "message": "={{ $json.emailBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        4304,
+        -432
+      ],
+      "id": "0044dae6-b858-4e27-98b7-87a743ef19b2",
+      "name": "Send a message",
+      "webhookId": "61505205-4dd4-408c-b410-4249cafac62a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "RsGPxPEneBHeg1m1",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "PONER_MAIL_PRUEBAS",
+        "subject": "={{ $json.emailSubject }}",
+        "message": "={{ $json.emailBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        4304,
+        -208
+      ],
+      "id": "2e849f9d-1325-4478-bb12-9d962e0431df",
+      "name": "Send a message2",
+      "webhookId": "61505205-4dd4-408c-b410-4249cafac62a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "RsGPxPEneBHeg1m1",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash-lite",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash-lite"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=const prompt = `\nDevuelve SOLO un JSON válido sin texto extra ni backticks.\n\nFORMATO DE SALIDA (JSON) SEPARADOS:\nAsunto: [Texto]\\nCuerpo: [Texto]\n}\n\nEscribe un email corto para alguien sin interés en videojuegos.\n\nReglas:\n- Máximo 3 oraciones en \"cuerpo\"\n- Tono curioso y persuasivo\n- Usa estos datos de forma natural:\n\nTitulo: {{ $('Seleccionador 1').item.json.Titulo }}\nDescripcion: {{ $('Seleccionador 1').item.json.Descripcion_breve }}\nGenero: {{ $('Seleccionador 1').item.json.Genero }}\nFecha: {{ $('Seleccionador 1').item.json.Fecha_Lanzamiento }}\n`;"
+            }
+          ]
+        },
+        "simplify": false,
+        "builtInTools": {},
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        3728,
+        -208
+      ],
+      "id": "b1a60096-d605-4dd1-be22-2446e393bbb0",
+      "name": "JUEGOS_NEGATIVOS",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "d8i4VSLTVlbai38I",
+          "name": "hoy 26/2/26"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "En esta primera parte se basa en obtener datos de una API la cual se selecciona 1 al azar. El cual se va a cargar en un Google Sheets, para que luego segun el criterio asignado al NODO SEPARADOR DE GENEROS, decida si es de interes o no.",
+        "height": 1024,
+        "width": 1536,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        -640
+      ],
+      "id": "5ee07d55-b404-40e1-9632-05d55e8ff9df",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "Trigger configurado para que se ejecute cada 10 minutos. ",
+        "width": 192
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -208
+      ],
+      "id": "4500c785-06c4-4d82-b287-987c41fd5f1a",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "Nodo HTTP Request, que solicita datos a la API: https://www.freetogame.com/api/games. Esta api nos trae una cantidad total de 406 items.",
+        "width": 208,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        176,
+        -272
+      ],
+      "id": "e445f405-d5f1-45d3-95cc-74d4f2479171",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "NODO CODE. El codigo esta hecho con Gemini, en su version PRO (trial gratis). Tuvo un total de 3 versiones. El cual el V3 es el que mejor funciono teniendo el contador de intentos. ",
+        "height": 288,
+        "width": 176,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        416,
+        -336
+      ],
+      "id": "4751acec-a70f-41c8-b8c4-1e256bd78237",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "NODO EDIT FIELDS. Seleccion de datos del juego que vamos a cargar en el google sheets. ",
+        "width": 160,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        640,
+        -320
+      ],
+      "id": "89830551-3b79-4298-af7b-4df1dd531c49",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "NODO SWITCH: Configurado como primer filtro. Que en este caso solo nos interesan los juegos de la plataforma PC. El cual se divide si la plataforma es otra (Mobile, Web, etc) En caso que sea Mobile se va un retry, el cual vuelve al nodo code, y el codigo esta asignado para que seleccione otro al azar. ",
+        "height": 400,
+        "width": 150,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        864,
+        -576
+      ],
+      "id": "c36ec7d5-0a60-4d19-a40b-d732ab0ad325",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "Node code: Codigo hecho con ChatGPT. El cual suma los intentos hechos. \n",
+        "width": 150,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1312,
+        -16
+      ],
+      "id": "96c39640-e4b6-42bf-aba7-e169d14c3b62",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "En la salida TRUE al intentar mas de 10 juegos diferentes. Se podria agregar un SUBFLUJO, que ejecute una notificacion de que esta tildado etc. ",
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1504,
+        64
+      ],
+      "id": "48bd146b-bae1-4d46-96be-ac1c6ad22cfe",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "NODO SHEET: Se necesitan credenciales, que se obtienen de https://console.cloud.google.com/. \nEl nodo esta preparado para cargar en filas los datos que filtramos.\n",
+        "height": 256,
+        "width": 150
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1104,
+        -528
+      ],
+      "id": "9fe6bd53-b1a8-4164-aa82-5c332f750b7c",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "Un NODO WAIT. Para la espera que carguen los datos en el Sheet para luego extraerlos devuelta. En mi caso 10 segundos fueron mas que suficiente. ",
+        "height": 208,
+        "width": 150
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1312,
+        -496
+      ],
+      "id": "7ce94d88-6c0c-49b2-81a5-a2189e868222",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1344,
+        -304
+      ],
+      "id": "9a8218b6-990d-46e3-a5fd-bf764323b9f2",
+      "name": "Wait",
+      "webhookId": "f3d70d8e-90be-4c53-8e4f-d7886558acb7"
+    },
+    {
+      "parameters": {
+        "content": "En esta segunda parte del flujo. Ya obtenemos los datos que anteriormente cargamos en el google sheet. Para pasarlos por los siguientes NODOS. Como dice la consigna. ",
+        "height": 1072,
+        "width": 2240,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2240,
+        -672
+      ],
+      "id": "9d5e907e-a282-4884-b252-c700e9fd1543",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "content": "NODO GET SHEET. En este nodo esta configurado para obtener todo lo que esta en el google sheets en todas las columnas. A nosotros solo nos interesa la ultima. ",
+        "height": 272,
+        "width": 150
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2224,
+        -528
+      ],
+      "id": "4bb6260a-ff1f-4225-8a27-079ef4a07f06",
+      "name": "Sticky Note11"
+    },
+    {
+      "parameters": {
+        "content": "NODO IA EN MESSAGE MODEL. Usamos gemini. En su version 2.5Flash-Lite. \nEsta asignado en separa el genero del videojuego. Parte del promt asignado: - Si el género es Shooter, RPG, Mundo abierto, Estrategia o Battle Royale -> Responde: {\"resultado\": \"POSITIVO\"}\n- Si es cualquier otro  {\"resultado\": \"NEGATIVO\"}\nSolo devuelve el POSITIVO O NEGATIVO, sin texto adicional.",
+        "height": 304,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2912,
+        -624
+      ],
+      "id": "d2f30684-d56f-4df7-993c-8555b46c5250",
+      "name": "Sticky Note12"
+    },
+    {
+      "parameters": {
+        "content": "Switch para Parsear el resultado. Ya que obtenemos negativo/positivo. Y en adelante si divide la ramificacion. ",
+        "width": 150
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3248,
+        -464
+      ],
+      "id": "300cf655-0409-4f67-bb26-e031489b5483",
+      "name": "Sticky Note13"
+    },
+    {
+      "parameters": {
+        "content": "En estos nodos EDIT FIELDS. Traemos toda la informacion desde el NODO SELECCIONADOR 1. En ambos casos se usan para darle datos a la IA para generar sus respectivos mensajes personalizados. ",
+        "height": 672,
+        "width": 272,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3424,
+        -608
+      ],
+      "id": "5a574bcf-57b4-4c2d-92ed-5d60c1834748",
+      "name": "Sticky Note14"
+    },
+    {
+      "parameters": {
+        "content": "El nodo IA esta configurado para que sea un experto en vendedor de juegos y pueda enviar con afirmacion que es un producto bueno. ",
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3728,
+        -592
+      ],
+      "id": "6735062d-f0a0-4219-8d37-ef2570856908",
+      "name": "Sticky Note15"
+    },
+    {
+      "parameters": {
+        "content": "En este caso, el nodo IA esta configurado con un promt que nos tiene que convencer que es un videojuego que nos pueda interesar. \n",
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3712,
+        -32
+      ],
+      "id": "d45fb16b-d7a1-4667-be67-6d8471109513",
+      "name": "Sticky Note16"
+    },
+    {
+      "parameters": {
+        "content": "EDIT FIELDS configurado como Parser para poder separar el text en formato JSON. \n",
+        "height": 672,
+        "width": 176,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        4016,
+        -608
+      ],
+      "id": "9544038d-fb52-4887-83e5-fdf8aec3952b",
+      "name": "Sticky Note17"
+    },
+    {
+      "parameters": {
+        "content": "En este espacio se podria incluir el trigger de subflujo. Una vez terminada la carga de datos en google sheet. Para que automaticamente ejecute el siguiente flujo. (Fue aclarado en la ultima clase que no era necesaria esta funcion) ",
+        "height": 320
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1744,
+        -528
+      ],
+      "id": "9a309f33-0f42-4daf-b809-446b3f257bfa",
+      "name": "Sticky Note18"
+    },
+    {
+      "parameters": {
+        "content": "En los SEND A MESSAGE usando GMAIL. Es necesario tener credenciales y en el apartado: TO:  Poner el mail de pruebas necesario. ",
+        "height": 688,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        4240,
+        -592
+      ],
+      "id": "0855f44e-133a-44e6-8539-5d7e6272fd5e",
+      "name": "Sticky Note19"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "GET_API_JUEGOS": {
+      "main": [
+        [
+          {
+            "node": "Codigo que selecciona 1 al azar v3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DATOS": {
+      "main": [
+        [
+          {
+            "node": "SOLO_WINDOWS_PLATAFORMA1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "GET_API_JUEGOS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ordenar por fecha DESC": {
+      "main": [
+        [
+          {
+            "node": "Seleccionador 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Ordenar por fecha DESC",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Seleccionador 1": {
+      "main": [
+        [
+          {
+            "node": "Separador de GENEROS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separador de GENEROS": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "DATOS_MAIL+",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "DATOS_MAIL-",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verificar Límite 10": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Codigo que selecciona 1 al azar v3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait para no saturar n8n": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JUEGOS_POSITIVO": {
+      "main": [
+        [
+          {
+            "node": "Extraer Asunto y Cuerpo (JSON)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SOLO_WINDOWS_PLATAFORMA1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait para no saturar n8n",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Codigo que selecciona 1 al azar v3": {
+      "main": [
+        [
+          {
+            "node": "DATOS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Verificar Límite 10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DATOS_MAIL-": {
+      "main": [
+        [
+          {
+            "node": "JUEGOS_NEGATIVOS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DATOS_MAIL+": {
+      "main": [
+        [
+          {
+            "node": "JUEGOS_POSITIVO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer Asunto y Cuerpo (JSON)": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer Asunto y Cuerpo (JSON)1": {
+      "main": [
+        [
+          {
+            "node": "Send a message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JUEGOS_NEGATIVOS": {
+      "main": [
+        [
+          {
+            "node": "Extraer Asunto y Cuerpo (JSON)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "1cb7ca37-de44-404e-a1a9-fc6bbabca96a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a41b3ea76dcf202075f633987e73881437a6809802d930f143b2ddffbf3b56d9"
+  },
+  "id": "aiXn4VuGK0t3KbD0",
+  "tags": []
+}
